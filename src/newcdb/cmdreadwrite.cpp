@@ -87,7 +87,7 @@ bool CmdReadcode::direct(string argstr)
   uint16_t n_byte = 1; 
 
   if(!is_hex(argv[0])) {
-    printf("Wrong code address: %s\n", argv[0]);
+    printf("Wrong code address: %s\n", argv[0].c_str());
     return true;
   } else {
     long hex = hex_to_num(argv[0]);
@@ -156,7 +156,7 @@ bool CmdReadxdata::direct(string argstr)
   uint16_t n_byte = 1; 
 
   if(!is_hex(argv[0])) {
-    printf("Wrong xdata address: %s\n", argv[0]);
+    printf("Wrong xdata address: %s\n", argv[0].c_str());
     return true;
   } else {
     long hex = hex_to_num(argv[0]);
@@ -226,7 +226,7 @@ bool CmdReaddata::direct(string argstr)
   uint8_t n_byte = 1; 
 
   if(!is_hex(argv[0])) {
-    printf("Wrong data address: %s\n", argv[0]);
+    printf("Wrong data address: %s\n", argv[0].c_str());
     return true;
   } else {
     long hex = hex_to_num(argv[0]);
@@ -319,7 +319,7 @@ pair<uint8_t, uint8_t> bit_addr(string bitstring)
   	  offset = (uint8_t)(bit_num - (byte_addr-0x20)*8);
       return make_pair(byte_addr, offset);
   	} else {
-			printf("%s - Not bit addressable\n", bitstring);
+			printf("%s - Not bit addressable\n", bitstring.c_str());
       return make_pair(0, 0);
   	}
   }
@@ -330,27 +330,27 @@ pair<uint8_t, uint8_t> bit_addr(string bitstring)
     vector<string> bv = split(bitstring,'.');
     if(!is_hex(bv[0]))
     {
-      printf("%s - wrong bit addr in dot notation.\n", bitstring);
+      printf("%s - wrong bit addr in dot notation.\n", bitstring.c_str());
       return make_pair(0, 0);
     }
     
     uint8_t byte_part = hex_to_num(bv[0]); 
     if(byte_part & 0x7 != 0)
     {
-      printf("%s - Not bit addressable.\n", bitstring);
+      printf("%s - Not bit addressable.\n", bitstring.c_str());
       return make_pair(0, 0);
     }
     
     if(!is_digit(bv[1]))
     {
-      printf("%s - wrong bit addr in dot notation.\n", bitstring);
+      printf("%s - wrong bit addr in dot notation.\n", bitstring.c_str());
       return make_pair(0, 0);
     }
 
     uint8_t offset_part = atoi(bv[1].c_str()); 
     if(offset_part > 7)
     {
-      printf("%s : wrong bit addr in dot notation.\n", bitstring);
+      printf("%s : wrong bit addr in dot notation.\n", bitstring.c_str());
       return make_pair(0, 0);
     }
 
